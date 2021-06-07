@@ -52,7 +52,6 @@ bot.on('message', async event => {
   if (event.message.type === 'text') {
     let sport = ''
     let recreation = ''
-    let service = ''
     try {
       for (const d of data) {
         const a = d.pm_libie.split(',')
@@ -66,11 +65,6 @@ bot.on('message', async event => {
             recreation = d.pm_recreation
           } else {
             recreation = '無遊樂設施'
-          }
-          if (d.pm_service !== '') {
-            service = d.pm_service
-          } else {
-            service = '無服務設施'
           }
           console.log(d)
           const z = {
@@ -88,23 +82,12 @@ bot.on('message', async event => {
               layout: 'vertical',
               contents: [
                 {
-                  type: 'box',
-                  layout: 'baseline',
-                  contents: [
-                    {
-                      type: 'icon',
-                      url: 'https://crockerpark.com/wp-content/uploads/DirectoryIcon.png',
-                      size: 'xl'
-                    },
-                    {
-                      type: 'text',
-                      text: `${d.pm_name}`,
-                      weight: 'bold',
-                      size: '20px',
-                      margin: 'md',
-                      offsetStart: 'none'
-                    }
-                  ]
+                  type: 'text',
+                  text: `📍${d.pm_name}`,
+                  weight: 'bold',
+                  size: 'xl',
+                  margin: 'md'
+                  // align: 'center'
                 },
                 {
                   type: 'box',
@@ -196,34 +179,6 @@ bot.on('message', async event => {
                           ]
                         }
                       ]
-                    },
-                    {
-                      type: 'box',
-                      layout: 'vertical',
-                      contents: [
-                        {
-                          type: 'box',
-                          layout: 'baseline',
-                          spacing: 'sm',
-                          contents: [
-                            {
-                              type: 'text',
-                              text: '服務設施',
-                              color: '#666666',
-                              size: 'sm',
-                              flex: 2
-                            },
-                            {
-                              type: 'text',
-                              text: service,
-                              wrap: true,
-                              color: '#666666',
-                              size: 'sm',
-                              flex: 5
-                            }
-                          ]
-                        }
-                      ]
                     }
                   ]
                 }
@@ -251,7 +206,7 @@ bot.on('message', async event => {
                   action: {
                     type: 'postback',
                     label: '交通資訊',
-                    text: '交通資訊',
+                    text: `交通資訊` ,
                     data: '交通資訊&' + `${d.pm_transit}`
                   },
                   height: 'sm',
@@ -265,6 +220,7 @@ bot.on('message', async event => {
                 separator: true
               }
             }
+
           }
           bubbles.push(z)
         }
@@ -276,7 +232,6 @@ bot.on('message', async event => {
   } else if (event.message.type === 'location') {
     let sport = ''
     let recreation = ''
-    let service = ''
     try {
       for (const d of data) {
         const km = distance(d.pm_lat, d.pm_lon, event.message.latitude, event.message.longitude)
@@ -289,11 +244,6 @@ bot.on('message', async event => {
           recreation = d.pm_recreation
         } else {
           recreation = '無遊樂設施'
-        }
-        if (d.pm_service !== '') {
-          service = d.pm_service
-        } else {
-          service = '無服務設施'
         }
         if (km <= 0.5) {
           const z = {
@@ -311,23 +261,12 @@ bot.on('message', async event => {
               layout: 'vertical',
               contents: [
                 {
-                  type: 'box',
-                  layout: 'baseline',
-                  contents: [
-                    {
-                      type: 'icon',
-                      url: 'https://crockerpark.com/wp-content/uploads/DirectoryIcon.png',
-                      size: 'xl'
-                    },
-                    {
-                      type: 'text',
-                      text: `${d.pm_name}`,
-                      weight: 'bold',
-                      size: '20px',
-                      margin: 'md',
-                      offsetStart: 'none'
-                    }
-                  ]
+                  type: 'text',
+                  text: `📍${d.pm_name}`,
+                  weight: 'bold',
+                  size: 'xl',
+                  margin: 'md'
+                  // align: 'center'
                 },
                 {
                   type: 'box',
@@ -419,34 +358,6 @@ bot.on('message', async event => {
                           ]
                         }
                       ]
-                    },
-                    {
-                      type: 'box',
-                      layout: 'vertical',
-                      contents: [
-                        {
-                          type: 'box',
-                          layout: 'baseline',
-                          spacing: 'sm',
-                          contents: [
-                            {
-                              type: 'text',
-                              text: '服務設施',
-                              color: '#666666',
-                              size: 'sm',
-                              flex: 2
-                            },
-                            {
-                              type: 'text',
-                              text: service,
-                              wrap: true,
-                              color: '#666666',
-                              size: 'sm',
-                              flex: 5
-                            }
-                          ]
-                        }
-                      ]
                     }
                   ]
                 }
@@ -483,12 +394,6 @@ bot.on('message', async event => {
                 }
               ]
             }
-            // ,
-            // styles: {
-            //   footer: {
-            //     separator: true
-            //   }
-            // }
           }
           bubbles.push(z)
         }
